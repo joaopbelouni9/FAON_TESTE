@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="pins/logo.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel - Agenda FOAN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Brasika', serif;
+      background-color: #ebc8cb;
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    /* ===== WRAPPER PRINCIPAL ===== */
+    .painel-wrapper {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+    }
+
+    /* ===== CABEÇALHO ===== */
+    .painel-cabecalho {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .maps-img {
+      position: relative;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .maps-img img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+
+    .pontinhos-img {
+      position: relative;
+    }
+
+    .pontinhos-img img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .icone-user {
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .icone-user img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ===== DATA ===== */
+    .data {
+      font-size: 1.2rem;
+      background-color: #fff;
+      color: #333;
+      padding: 0.5rem 1rem;
+      border-radius: 15px;
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+      align-self: flex-start;
+    }
+
+    /* ===== BILHETES ===== */
+    .painel-itens {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      background-color: #a0216f;
+      padding: 1rem;
+      border-radius: 20px;
+      min-height: 200px;
+    }
+
+    .bilhete {
+      position: relative;
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 4px 6px 15px rgba(0,0,0,0.2);
+      font-size: 1rem;
+      min-width: 120px;
+      max-width: 200px;
+      flex: 1 1 150px;
+      word-wrap: break-word;
+    }
+
+    .pin {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 30px;
+      height: 30px;
+      background-image: url('pins/pin painel.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 2;
+    }
+
+    .excluir {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: none;
+      border: none;
+      color: #a0216f;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    /* ===== FORMULÁRIO ===== */
+    #form-adicionar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    #texto-bilhete {
+      flex: 1 1 200px;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    #form-adicionar button {
+      background-color: #5b4669;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #form-adicionar button:hover {
+      background-color: #ff8c66;
+    }
+
+    /* ===== RESPONSIVIDADE ===== */
+    @media (max-width: 768px) {
+      .painel-cabecalho {
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .maps-img img, .pontinhos-img img, .icone-user img {
+        width: 50px;
+        height: 50px;
+      }
+
+      .data {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .painel-itens {
+        padding: 0.5rem;
+      }
+
+      .bilhete {
+        flex: 1 1 120px;
+        min-width: 100px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .painel-wrapper {
+        padding: 0.5rem;
+      }
+
+      .painel-cabecalho {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .data {
+        align-self: center;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+      }
+
+      #texto-bilhete {
+        flex: 1 1 150px;
+      }
+
+      #form-adicionar button {
+        padding: 0.4rem 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="painel-wrapper">
+    <!-- Cabeçalho -->
+    <div class="painel-cabecalho">
+      <div class="maps-img">
+        <img src="pins/maps.png" alt="Maps" />
+        <div class="pontinhos-img">
+          <img src="pins/pontinhos.png" alt="Pontinhos" />
+        </div>
+      </div>
+      <div class="icone-user">
+        <img src="pins/user.png" alt="Usuário" />
+      </div>
+    </div>
+
+    <!-- Data -->
+    <div class="data"></div>
+
+    <!-- Bilhetes -->
+    <div class="painel-itens">
+      <!-- Bilhetes serão adicionados via JS -->
+    </div>
+
+    <!-- Formulário -->
+    <form id="form-adicionar">
+      <input type="text" id="texto-bilhete" placeholder="Digite seu bilhete..." />
+      <button type="submit">+</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const data = new Date();
+      const dataFormatada = data.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+      document.querySelector(".data").textContent = dataFormatada;
+
+      const form = document.getElementById("form-adicionar");
+      const input = document.getElementById("texto-bilhete");
+      const painel = document.querySelector(".painel-itens");
+
+      function criarBilhete(texto) {
+        const novoBilhete = document.createElement("div");
+        novoBilhete.className = "bilhete";
+
+        const pin = document.createElement("div");
+        pin.className = "pin";
+
+        const paragrafo = document.createElement("p");
+        paragrafo.textContent = texto;
+
+        const botaoExcluir = document.createElement("button");
+        botaoExcluir.className = "excluir";
+        botaoExcluir.textContent = "×";
+        botaoExcluir.title = "Excluir bilhete";
+        botaoExcluir.addEventListener("click", () => novoBilhete.remove());
+
+        novoBilhete.appendChild(pin);
+        novoBilhete.appendChild(paragrafo);
+        novoBilhete.appendChild(botaoExcluir);
+        painel.appendChild(novoBilhete);
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const texto = input.value.trim();
+        if (texto !== "") {
+          criarBilhete(texto);
+          input.value = "";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

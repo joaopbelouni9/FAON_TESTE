@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="pins/logo.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendário - Agenda FOAN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* ======== RESET ======== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Brasika', serif;
+      background-color: #f3d9dd;
+      color: #4a0033;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* ======== TOPO ======== */
+    .topo {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      flex-wrap: wrap;
+    }
+
+    .titulo-img {
+      width: 70px;
+      height: 70px;
+    }
+
+    .user-icon {
+      padding: 10px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-icon img {
+      width: 55px;
+      height: 55px;
+    }
+
+    .mes-ano {
+      font-size: 30px;
+      background-color: #dd358a;
+      border-radius: 25px;
+      color: white;
+      text-align: center;
+      padding: 10px 20px;
+      margin: 10px auto;
+      display: inline-block;
+    }
+
+    /* ======== ÍCONES VERTICAIS ======== */
+.icone-vertical {
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%); 
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 1000;
+}
+
+.icone-vertical img {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+    /* ======== CONTEÚDO ======== */
+    .conteudo {
+      background-color: #a10058;
+      border-radius: 12px;
+      padding: 30px 20px;
+      width: 100%;
+      max-width: 800px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+
+    /* ======== CALENDÁRIO ======== */
+    .calendario {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .dia, .cabecalho {
+      background-color: #e45d75;
+      border-radius: 15px;
+      text-align: center;
+      padding: 10px;
+      box-shadow: 5px 2px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      font-weight: bold;
+      color: #fff;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    .dia:hover {
+      background-color: #ffe4ec;
+      color: #4a0033;
+    }
+
+    .cabecalho {
+      background-color: #a10058;
+      cursor: default;
+    }
+
+    .vazio {
+      visibility: hidden;
+    }
+
+    /* ======== RESPONSIVIDADE ======== */
+    @media (max-width: 1024px) {
+      .mes-ano {
+        font-size: 28px;
+        padding: 8px 16px;
+      }
+
+      .dia, .cabecalho {
+        font-size: 16px;
+        padding: 8px;
+      }
+
+      .icone-vertical img {
+        width: 30px;
+        height: 25px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .calendario {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+      }
+
+      .topo {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mes-ano {
+        font-size: 24px;
+        padding: 6px 12px;
+      }
+
+      .dia, .cabecalho {
+        font-size: 14px;
+        padding: 6px;
+      }
+
+      .icone-vertical {
+        flex-direction: row;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 10px 0;
+      }
+
+      .icone-vertical img {
+        width: 25px;
+        height: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .conteudo {
+        padding: 15px 10px;
+      }
+
+      .dia, .cabecalho {
+        font-size: 12px;
+        padding: 4px;
+      }
+
+      .mes-ano {
+        font-size: 20px;
+        padding: 5px 10px;
+      }
+
+      .titulo-img {
+        width: 50px;
+        height: 50px;
+      }
+
+      .user-icon img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- TOPO COM ÍCONE DE USUÁRIO -->
+  <div class="topo">
+    <img src="pins/calendario coração.png" alt="Ícone de Calendário" class="titulo-img"/>
+    <div class="user-icon">
+      <img src="pins/user.png" alt="Usuário">
+    </div>
+    <div class="mes-ano" id="mesAno"></div>
+  </div>
+
+  <!-- ÍCONES VERTICAIS -->
+  <div class="icone-vertical">
+    <img src="pins/+.png" alt="Adicionar">
+    <img src="pins/check.png" alt="Concluir">
+    <img src="pins/x.png" alt="Aviso">
+    <img src="pins/!.png" alt="Info">
+    <img src="pins/mini location.png" alt="Local">
+  </div>
+
+  <!-- CONTEÚDO COM CALENDÁRIO -->
+  <div class="conteudo">
+    <div class="calendario" id="calendario"></div>
+  </div>
+
+  <script>
+    const calendario = document.getElementById('calendario');
+    const mesAno = document.getElementById('mesAno');
+    const diasSemana = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = hoje.getMonth();
+
+    const nomeMes = hoje.toLocaleString('default', { month: 'long' });
+    mesAno.textContent = nomeMes.toUpperCase();
+
+    // Cabeçalho
+    diasSemana.forEach(dia => {
+      const cab = document.createElement('div');
+      cab.className = 'cabecalho';
+      cab.textContent = dia;
+      calendario.appendChild(cab);
+    });
+
+    const primeiroDia = new Date(ano, mes, 1).getDay();
+    const diasNoMes = new Date(ano, mes + 1, 0).getDate();
+
+    for (let i = 0; i < primeiroDia; i++) {
+      const vazio = document.createElement('div');
+      vazio.className = 'vazio';
+      calendario.appendChild(vazio);
+    }
+
+    for (let dia = 1; dia <= diasNoMes; dia++) {
+      const div = document.createElement('div');
+      div.className = 'dia';
+      div.textContent = dia;
+
+      div.onclick = () => {
+        window.location.href = `agendamento.html?dia=${dia}`;
+      };
+
+      calendario.appendChild(div);
+    }
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="pins/logo.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - FOAN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ======== RESET ======== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background-color: #e8cace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* ======== CONTAINER PRINCIPAL ======== */
+    .container {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    /* ======== LOGO ======== */
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .logo h1 {
+      font-size: 28px;
+      color: #4a0033;
+      letter-spacing: 2px;
+    }
+
+    /* ======== BOX DE LOGIN ======== */
+    .login-box {
+      background-color: #9a0057;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .login-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .login-icon {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .login-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .login-header h2 {
+      color: white;
+      font-size: 24px;
+    }
+
+    /* ======== BOTÕES ======== */
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .login-btn {
+      background-color: #9a0057;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 20px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      justify-content: center;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+
+    .login-btn:hover {
+      background-color: #7a0045;
+    }
+
+    .login-btn img {
+      width: 25px;
+      height: 25px;
+    }
+
+    /* ======== REGISTER ======== */
+    .register a {
+      color: white;
+      font-size: 14px;
+      text-decoration: underline;
+    }
+
+    .register a:hover {
+      color: #cdb7b7;
+    }
+
+    /* ======== RESPONSIVIDADE ======== */
+    @media (max-width: 480px) {
+      .logo h1 {
+        font-size: 22px;
+      }
+
+      .login-header h2 {
+        font-size: 20px;
+      }
+
+      .login-icon {
+        width: 45px;
+        height: 45px;
+      }
+
+      .login-btn {
+        font-size: 14px;
+        padding: 10px 15px;
+        gap: 8px;
+      }
+
+      .login-btn img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .container {
+        padding: 0 10px;
+      }
+
+      .login-box {
+        padding: 20px 15px;
+        gap: 15px;
+      }
+
+      .buttons {
+        gap: 10px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <div class="logo-icon">
+        <img src="pins/logo.png" alt="Logo FOAN">
+      </div>
+      <h1>FOAN</h1>
+    </div>
+
+    <div class="login-box">
+      <div class="login-header">
+        <div class="login-icon">
+          <img src="pins/user.png" alt="User Icon">
+        </div>
+        <h2>LOGIN</h2>
+      </div>
+
+      <div class="buttons">
+        <button class="login-btn google" onclick="loginGoogle()">
+          <img src="pins/google.png" alt="Google">
+          Login com Google
+        </button>
+        <button class="login-btn email" onclick="loginEmail()">
+          <img src="pins/email.png" alt="Email">
+          Login com Email
+        </button>
+        <button class="login-btn twitter" onclick="loginTwitter()">
+          <img src="pins/twitter.png" alt="Twitter">
+          Login com Twitter
+        </button>
+      </div>
+
+      <div class="register">
+        <a href="#">Já tem uma conta?</a>
+      </div>
+    </div>
+  </div>
+
+<script>
+    function loginGoogle() { window.location.href = "menu.html"; }
+    function loginEmail() { window.location.href = "menu.html"; }
+    function loginTwitter() { window.location.href = "menu.html"; }
+</script>
+</body>
+</html>
+

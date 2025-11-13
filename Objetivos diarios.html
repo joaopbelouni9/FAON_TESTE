@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- Forçar site a ficar bonito no celular também -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>Objetivos Diários</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Deixar a fonte básica mesmo */
+            background-color: #e8cace;  /* Um rosa claro de fundo */
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 100%;     /* Pra encaixar em qualquer tela */
+            background: #a10058; /* Bordô bem escuro */
+            color: #e8cace;      /* Combinação com o fundo */
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.5rem; 
+            margin-bottom: 15px;
+        }
+
+        /* Grade de dias da semana - cada quadradinho é um dia */
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); /* cada bloco tem no mínimo 190px */
+            gap: 15px;
+        }
+
+        .day {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 2px solid #a10058;
+            border-radius: 8px;
+            padding: 12px;
+            color: #a10058;
+            min-height: 240px;
+            /* Fundinho com linhas, estilo papel */
+            background-image: linear-gradient(180deg, transparent 24px, rgba(0, 0, 0, 0.03) 25px);
+            background-size: 100% 30px;
+        }
+
+        /* Título de cada dia */
+        h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 6px;
+            background-color: #f3d9dd;
+            border-radius: 5px;
+        }
+
+        /* Área de inserir objetivo */
+        .goal-input {
+            display: flex;
+            margin-top: 10px;
+            gap: 5px;
+        }
+
+        .goal-input input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .goal-input button {
+            padding: 6px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        /* Lista de objetivos */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            overflow-y: auto;
+            max-height: 135px; /* Limite no celular */
+        }
+
+        li {
+            background: #f9f9f9;
+            margin: 6px 0;
+            padding: 8px;
+            border-radius: 5px;
+            border-left: 5px solid #5d9ee4; /* Barrinha colorida */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        li.completed {
+            text-decoration: line-through;
+            background: #dcedc8;
+            color: #777;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-group button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .delete-btn {
+            color: #e53935;
+        }
+
+        .check-btn {
+            color: #43a047;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Objetivos Diários</h1>
+    
+    <div class="days-grid">
+
+        <!-- Segunda -->
+        <div class="day" id="segunda">
+            <h2>Segunda</h2>
+            <div class="goal-input">
+                <input type="text" placeholder="Adicionar objetivo...">
+                <button onclick="addGoal('segunda')">+</button>
+            </div>
+            <ul></ul>
+        </div>
+
+        <!-- Terça -->
+        <div class="day" id="terca">
+            <h2>Terça</h2>
+            <div class="goal-input">
+                <input type="text" placeholder="Adicionar objetivo...">
+                <button onclick="addGoal('terca')">+</button>
+            </div>
+            <ul></ul>
+        </div>
+
+        <!-- Quarta -->
+        <div class="day" id="quarta">
+            <h2>Quarta</h2>
+            <div class="goal-input">
+                <input type="text" placeholder="Adicionar objetivo...">
+                <button onclick="addGoal('quarta')">+</button>
+            </div>
+            <ul></ul>
+        </div>
+
+        <!-- Quinta -->
+        <div class="day" id="quinta">
+            <h2>Quinta</h2>
+            <div class="goal-input">
+                <input type="text" placeholder="Adicionar objetivo...">
+                <button onclick="addGoal('quinta')">+</button>
+            </div>
+            <ul></ul>
+        </div>
+
+        <!-- Sexta -->
+        <div class="day" id="sexta">
+            <h2>Sexta</h2>
+            <div class="goal-input">
+                <input type="text" placeholder="Adicionar objetivo...">
+                <button onclick="addGoal('sexta')">+</button>
+            </div>
+            <ul></ul>
+        </div>
+
+    </div>
+</div>
+
+<script>
+/* Essa função serve pra adicionar uma nova tarefa no dia que a gente clicou */
+function addGoal(diaId) {
+    const blocoDoDia = document.getElementById(diaId);
+    const input = blocoDoDia.querySelector("input");
+    const lista = blocoDoDia.querySelector("ul");
+
+    if (input.value.trim() !== "") {
+        const novaTarefa = document.createElement("li");
+        novaTarefa.textContent = input.value;
+
+        const btns = document.createElement("div");
+        btns.className = "btn-group";
+
+        const btnCheck = document.createElement("button");
+        btnCheck.className = "check-btn";
+        btnCheck.textContent = "✔";
+        btnCheck.onclick = () => novaTarefa.classList.toggle("completed");
+
+        const btnDelete = document.createElement("button");
+        btnDelete.className = "delete-btn";
+        btnDelete.textContent = "✖";
+        btnDelete.onclick = () => lista.removeChild(novaTarefa);
+
+        btns.appendChild(btnCheck);
+        btns.appendChild(btnDelete);
+        novaTarefa.appendChild(btns);
+
+        lista.appendChild(novaTarefa);
+
+        input.value = "";
+        input.focus(); // Voltar pro input pra facilitar
+    }
+}
+</script>
+
+</body>
+</html>

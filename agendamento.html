@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="pins/logo.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamento do Dia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* ======== RESET ======== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Brasika', serif;
+      background-color: #f4d7d9;
+      color: #4a0033;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    /* ======== FORM ======== */
+    form {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button.concluir {
+      background-color: #8bc34a;
+      color: white;
+    }
+
+    button.excluir {
+      background-color: #e57373;
+      color: white;
+    }
+
+    /* ======== CONTEÚDO ======== */
+    .conteudo {
+      background-color: #a10058;
+      border-radius: 12px;
+      padding: 30px 40px;
+      margin: 20px auto 0 auto;
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      min-height: 300px;
+      overflow-y: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #tarefas {
+      width: 100%;
+    }
+
+    .tarefa {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      flex-wrap: wrap;
+    }
+
+    .tarefa.concluida {
+      background-color: #c0f3c2;
+      text-decoration: line-through;
+      color: #555;
+    }
+
+    .botoes {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    /* ======== RESPONSIVIDADE ======== */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      input[type="text"],
+      button {
+        width: 100%;
+      }
+
+      .conteudo {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      input[type="text"],
+      button {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .tarefa {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .botoes {
+        justify-content: flex-end;
+        width: 100%;
+      }
+
+      .conteudo {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="titulo-dia">Agendamentos</h1>
+
+  <form id="form-agendar">
+    <input type="text" id="input-tarefa" placeholder="Adicionar tarefa..." required>
+    <button type="submit">Adicionar</button>
+  </form>
+
+  <div class="conteudo">
+    <div id="tarefas"></div>
+  </div>
+
+  <script>
+    const tarefasEl = document.getElementById('tarefas');
+    const form = document.getElementById('form-agendar');
+    const input = document.getElementById('input-tarefa');
+    const titulo = document.getElementById('titulo-dia');
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const dia = urlParams.get('dia');
+    const hoje = new Date();
+    const mes = hoje.getMonth();
+    const ano = hoje.getFullYear();
+
+    const chave = `tarefas-${ano}-${mes}-${dia}`;
+    let tarefas = JSON.parse(localStorage.getItem(chave)) || [];
+
+    titulo.textContent = `Agendamentos do dia ${dia}/${mes+1}/${ano}`;
+
+    function salvarTarefas() {
+      localStorage.setItem(chave, JSON.stringify(tarefas));
+    }
+
+    function atualizarLista() {
+      tarefasEl.innerHTML = '';
+      tarefas.forEach((tarefa, index) => {
+        const div = document.createElement('div');
+        div.className = 'tarefa' + (tarefa.concluida ? ' concluida' : '');
+        div.innerHTML = `
+          <span>${tarefa.texto}</span>
+          <div class="botoes">
+            <button class="concluir">✔</button>
+            <button class="excluir">✖</button>
+          </div>
+        `;
+
+        div.querySelector('.concluir').onclick = () => {
+          tarefa.concluida = !tarefa.concluida;
+          salvarTarefas();
+          atualizarLista();
+          if (tarefa.concluida) {
+            localStorage.setItem(`concluido-${ano}-${mes}-${dia}`, 'true');
+          } else {
+            const aindaTem = tarefas.some(t => t.concluida);
+            if (!aindaTem) localStorage.removeItem(`concluido-${ano}-${mes}-${dia}`);
+          }
+        };
+
+        div.querySelector('.excluir').onclick = () => {
+          tarefas.splice(index, 1);
+          salvarTarefas();
+          atualizarLista();
+        };
+
+        tarefasEl.appendChild(div);
+      });
+    }
+
+    form.onsubmit = e => {
+      e.preventDefault();
+      const texto = input.value.trim();
+      if (!texto) return;
+      tarefas.push({ texto, concluida: false });
+      input.value = '';
+      salvarTarefas();
+      atualizarLista();
+    };
+
+    atualizarLista();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,250 @@
+body {
+  margin: 0;
+  font-family: 'Brasika', serif;
+  background-color: #ebc8cb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.painel-wrapper {
+  position: relative;
+  width: 95%;
+  max-width: 1000px;
+}
+
+.painel-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.data {
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
+  font-size: 1.1rem;
+  background-color: #fff;
+  color: #333;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+}
+
+.icone-user {
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icone-user img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+}
+
+.maps-img {
+  width: 60px;
+  height: 60px;
+}
+
+.maps-img img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+}
+
+.pontinhos-img {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  z-index: 5;
+}
+
+.pontinhos-img img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.painel-itens {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  background-color: #a0216f; 
+  padding: 2rem;
+  border-radius: 20px;
+  min-height: 400px;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.bilhete {
+  position: relative;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 4px 6px 15px rgba(0,0,0,0.2);
+  font-size: 1.2rem;
+  width: 100%;
+  min-height: 100px;
+  max-width: 240px;
+}
+
+.pin {
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  background-image: url('pins/pin painel.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 2;
+}
+
+.excluir {
+  position: absolute;
+  top: 0;
+  right: 200px;
+  background: none;
+  border: none;
+  color: #a0216f;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 3;
+}
+
+#form-adicionar {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 1rem;
+  left: 0;
+}
+
+#texto-bilhete {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+}
+
+#form-adicionar button {
+  background-color: #5b4669;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#form-adicionar button:hover {
+  background-color: #ff8c66;
+}
+
+/*  MEDIA QUERIES RESPONSIVAS */
+
+@media (max-width: 1024px) {
+  .painel-itens {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    margin-top: 60px;
+  }
+
+  .pontinhos-img img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  .painel-wrapper {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .data {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .painel-itens {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+
+  .bilhete {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  #form-adicionar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #texto-bilhete,
+  #form-adicionar button {
+    width: 100%;
+  }
+
+  .icone-user img, .maps-img img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .pontinhos-img img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .painel-itens {
+    gap: 0.5rem;
+  }
+
+  .bilhete {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+
+  #form-adicionar {
+    margin-top: 1rem;
+  }
+
+  .data {
+    font-size: 0.9rem;
+  }
+}

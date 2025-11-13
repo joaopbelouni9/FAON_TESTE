@@ -1,0 +1,215 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ======== BASE ======== */
+body {
+  background-color: #e8cace;
+  font-family: 'Cormorant Garamond', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* ======== CONTAINER PRINCIPAL ======== */
+.container {
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+  padding: 1rem;
+}
+
+/* ======== LOGO ======== */
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.logo-icon {
+  border-radius: 40%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.logo h1 {
+  font-size: 24px;
+  color: #333;
+  letter-spacing: 2px;
+  margin-left: 10px;
+}
+
+/* ======== CAIXA DE LOGIN ======== */
+.login-box {
+  margin-top: 100px;
+}
+
+.login-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.login-icon img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+}
+
+.login-header h2 {
+  color: white;
+  font-size: 24px;
+  text-align: center;
+}
+
+/* ======== BOTÕES ======== */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+}
+
+.login-btn {
+  background-color: #9a0057;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 30px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  max-width: 300px;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.login-btn:hover {
+  background-color: #7a0045;
+}
+
+.login-btn img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* ======== LINK DE REGISTRO ======== */
+.register {
+  margin-top: 20px;
+}
+
+.register a {
+  color: white;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.register a:hover {
+  color: #cdb7b7;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 900px) {
+  .logo {
+    top: 10px;
+    left: 10px;
+  }
+
+  .logo h1 {
+    font-size: 20px;
+  }
+
+  .login-box {
+    margin-top: 80px;
+  }
+
+  .login-btn {
+    max-width: 250px;
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  .container {
+    padding: 0.5rem;
+  }
+
+  .logo {
+    position: static;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .logo h1 {
+    font-size: 18px;
+    margin-left: 8px;
+  }
+
+  .login-header h2 {
+    font-size: 20px;
+  }
+
+  .login-icon img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .login-btn {
+    font-size: 16px;
+    padding: 12px 20px;
+    max-width: 100%;
+  }
+
+  .register a {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .login-header {
+    gap: 5px;
+  }
+
+  .login-header h2 {
+    font-size: 18px;
+  }
+
+  .login-btn {
+    font-size: 15px;
+    padding: 10px 15px;
+  }
+
+  .logo h1 {
+    font-size: 16px;
+  }
+}
+
