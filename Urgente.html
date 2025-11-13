@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Urgente</title>
+    <style>
+        @font-face {
+            font-family: 'brasika';
+            src: url('brasika.woff2') format('woff2'),
+                 url('brasika.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'brasika', sans-serif; 
+            background-color: #fceded;  Cor fundo do site */
+            color: #FFF; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fceded; 
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid white;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-title h1 {
+            color: #cb007a; 
+            font-size: 24px;
+        }
+
+        .icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #cb007a; 
+            color: white;
+            font-family: sans-serif; 
+        }
+        
+        .user-icon {
+            background-color: #d6ac96;
+        }
+
+        .list-area {
+            background-color: #cb007a; 
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 300px;
+        }
+
+        #task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            word-break: break-all;
+        }
+
+        .task-item span {
+            flex-grow: 1;
+            padding: 0 10px;
+        }
+
+        .delete-btn {
+            background-color: #ff0012; 
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            flex-shrink: 0; 
+            /* SEXTA ETAPA (IMAGENS): Você pode usar uma imagem aqui 
+               background-image: url('caminho/para/lixeira.png');
+               background-size: cover;
+               color: transparent; 
+            */
+        }
+        
+        .delete-btn:hover {
+            opacity: 0.8;
+        }
+
+        #new-task-form {
+            display: flex;
+            margin-top: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        #new-task-input {
+            flex-grow: 1;
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            padding: 10px 0;
+            font-family: 'brasika', sans-serif;
+            outline: none; 
+        }
+
+        #new-task-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        #add-task-btn {
+            background-color: #a2d998; 
+            color: #724969; 
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+            align-self: center; 
+        }
+        
+        #add-task-btn:hover {
+            opacity: 0.8;
+        }
+
+        footer {
+            text-align: right;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #724969; 
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <header>
+            <div class="header-title">
+                <div class="icon">
+                    <span>L</span> </div>
+                <h1>Urgente</h1>
+            </div>
+
+            <div class="icon user-icon">
+                <span>P</span> </div>
+        </header>
+
+        <main class="list-area">
+            
+            <ul id="task-list">
+                </ul>
+
+            <form id="new-task-form">
+                <input type="text" id="new-task-input" placeholder="Escreva sua tarefa aqui...">
+                
+                <button type="submit" id="add-task-btn">+</button>
+            </form>
+
+        </main>
+
+        <footer>
+            Central de Ajuda
+        </footer>
+
+    </div>
+
+    <script>
+        const taskForm = document.getElementById('new-task-form');
+        const taskInput = document.getElementById('new-task-input');
+        const taskList = document.getElementById('task-list');
+
+        taskForm.addEventListener('submit', function(evento) {
+            evento.preventDefault(); 
+
+            const taskText = taskInput.value.trim();
+
+            if (taskText !== '') {
+                const taskItem = document.createElement('li');
+                taskItem.classList.add('task-item');
+
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('delete-btn');
+                deleteButton.innerText = 'X'; 
+
+                const textSpan = document.createElement('span');
+                textSpan.innerText = taskText;
+
+                taskItem.appendChild(deleteButton);
+                taskItem.appendChild(textSpan);
+
+                taskList.appendChild(taskItem);
+
+                taskInput.value = '';
+            }
+        });
+
+        taskList.addEventListener('click', function(evento) {
+            
+            if (evento.target.classList.contains('delete-btn')) {
+                
+                const taskItemToRemote = evento.target.parentElement;
+
+                taskList.removeChild(taskItemToRemote);
+                
+            }
+        });
+
+    </script>
+
+</body>
+</html>
